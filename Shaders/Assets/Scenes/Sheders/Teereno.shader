@@ -65,8 +65,13 @@
 
 			float4 blendData = tex2D(_BlendTex, IN.uv_BlendTex);
 	
-			
-			ata, blendData.b);
+			float4 rTexData = tex2D(_RTexture, IN.uv_RTexture);
+			float4 gTexData = tex2D(_GTexture, IN.uv_GTexture);
+			float4 bTexData = tex2D(_BTexture, IN.uv_BTexture);
+			float4 aTexData = tex2D(_ATexture, IN.uv_ATexture);		
+			float4 finalColor;
+			finalColor = lerp(rTexData, gTexData, blendData.g);
+			finalColor = lerp(finalColor, bTexData, blendData.b);
 			finalColor = lerp(finalColor, aTexData, blendData.a); finalColor.a = 1.0;
 
 			float4 terrainLayers = lerp(_ColorA, _ColorB, blendData.r);
